@@ -1,0 +1,20 @@
+@(page: services.IndexPage)(implicit request: RequestHeader)
+
+@import views.support.EmailArticleImage
+@import views.support.EmailHelpers._
+@import model.liveblog._
+@import model.EmailAddons.EmailContentType
+
+
+
+@page.contents.map { page =>
+    @fullRow {
+        <a href="@page.item.metadata.webUrl" @page.item.email.map { email => title="View @email.name online"}>
+            <img width="580" src="@page.item.banner" @page.item.email.map { email => alt="View @email.name online"}>
+        </a>
+    }
+
+    @paddedRow {
+        <h1>@page.faciaItem.properties.webTitle</h1>
+    }
+}
