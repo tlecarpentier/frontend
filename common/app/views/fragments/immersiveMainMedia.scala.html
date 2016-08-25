@@ -4,6 +4,7 @@
 @import model.ContentPage
 @import views.support.TrailCssClasses.toneClass
 @import views.support.RenderClasses
+@import conf.switches.Switches.immersiveMainEmbedSwitch
 
 @defining((
     page.item.tags.isUSMinuteSeries,
@@ -46,11 +47,15 @@
                 }
             } else {
                 @if(hasMainMedia) {
-                    <div class="immersive-main-media__media__loading">
-                        <div class="immersive-main-media__loading-animation is-updating"></div>
-                        <span class="u-h">Loading header</span>
-                    </div>
-                    @Html(page.item.fields.main)
+                    @if(immersiveMainEmbedSwitch.isSwitchedOn) {
+                        @Html(page.item.fields.main)
+                    } else {
+                        <div class="immersive-main-media__media__loading">
+                            <div class="immersive-main-media__loading-animation is-updating"></div>
+                            <span class="u-h">Loading header</span>
+                        </div>
+                        @Html(page.item.fields.main)
+                    }
                 }
             }
         </div>
