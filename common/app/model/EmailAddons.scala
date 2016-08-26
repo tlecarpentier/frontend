@@ -2,6 +2,7 @@ package model
 
 import conf.Static
 
+// TODO: turn this into a type class so it can handle both article emails and fronts emails??
 sealed trait EmailContent extends Product with Serializable {
   def name: String
   def banner: String

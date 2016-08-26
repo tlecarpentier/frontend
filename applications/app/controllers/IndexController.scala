@@ -16,8 +16,6 @@ class IndexController extends IndexControllerCommon {
         JsonComponent(
           "html" -> views.html.fragments.indexBody(model)
         )
-      } else if (request.isEmail) {
-        RevalidatableResult.Ok(views.html.email(model))
       } else {
         RevalidatableResult.Ok(views.html.index(model))
       }

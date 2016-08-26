@@ -1,0 +1,36 @@
+@import layout.MetaDataHeader
+@import model.facia.PressedCollection
+@import layout.FaciaCardHeader
+@import model.InlineImage
+@import views.html.fragments.items.elements.facia_cards.itemImage
+@(page: model.PressedPage)(implicit request: RequestHeader)
+
+@import common.Edition
+@import conf.Static
+@import views.support.EmailHelpers._
+
+@fullRow {
+    @* TODO: add optional email property, and banner, etc to Page (see emailArticleBody.scala.html) *@
+    <a href="@page.metadata.webUrl">
+        <img width="580" src="@Static("images/email/banners/generic.png")">
+    </a>
+}
+
+@paddedRow {
+    <h1>@page.metadata.webTitle</h1>
+}
+
+@page.collections.map { collection =>
+    @paddedRow {
+        <h2 class="block__title">@collection.displayName</h2>
+    }
+
+    @collection.curatedPlusBackfillDeduplicated.map { pressedContent =>
+        @paddedRow {
+            <h3>@FaciaCardHeader.fromTrail(pressedContent, None).headline</h3>
+            @InlineImage.fromFaciaContent(pressedContent).map { image =>
+                @itemImage(image.imageMedia)
+            }
+        }
+    }
+}
